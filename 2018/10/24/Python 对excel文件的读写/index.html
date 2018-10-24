@@ -14,8 +14,8 @@
 <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
 <script>
     (function(){
-        if('mikasa'){
-            if (prompt('请输入文章密码') !== 'mikasa'){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
                 alert('密码错误！');
                 history.back();
             }
@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="测试,">
+  <meta name="keywords" content="python,">
 
 
 
@@ -91,18 +91,18 @@
 
 
 
-<meta name="description" content="Hello worldThis is a test file.">
-<meta name="keywords" content="测试">
+<meta name="description" content="12345678910111213141516171819202122232425import xlwtbook = xlwt.Workbook(encoding=&apos;utf-8&apos;, style_compression=0)&quot;&quot;&quot;创建一个Worlbook对象，相当于创建一个Excel文件&quot;&quot;&quot;sheet = book.add_sheet(&apos;test1&apos;,cell_overwrite_ok=True)">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="http://mymikasa.github.io/2018/07/27/test/index.html">
+<meta property="og:title" content="Python 对excel文件的读写">
+<meta property="og:url" content="http://mymikasa.github.io/2018/10/24/Python 对excel文件的读写/index.html">
 <meta property="og:site_name" content="Mikasa">
-<meta property="og:description" content="Hello worldThis is a test file.">
+<meta property="og:description" content="12345678910111213141516171819202122232425import xlwtbook = xlwt.Workbook(encoding=&apos;utf-8&apos;, style_compression=0)&quot;&quot;&quot;创建一个Worlbook对象，相当于创建一个Excel文件&quot;&quot;&quot;sheet = book.add_sheet(&apos;test1&apos;,cell_overwrite_ok=True)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-28T08:41:01.276Z">
+<meta property="og:updated_time" content="2018-10-24T08:49:49.730Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
-<meta name="twitter:description" content="Hello worldThis is a test file.">
+<meta name="twitter:title" content="Python 对excel文件的读写">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425import xlwtbook = xlwt.Workbook(encoding=&apos;utf-8&apos;, style_compression=0)&quot;&quot;&quot;创建一个Worlbook对象，相当于创建一个Excel文件&quot;&quot;&quot;sheet = book.add_sheet(&apos;test1&apos;,cell_overwrite_ok=True)">
 
 
 
@@ -132,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://mymikasa.github.io/2018/07/27/test/">
+  <link rel="canonical" href="http://mymikasa.github.io/2018/10/24/Python 对excel文件的读写/">
 
 
 
 
 
-  <title>test | Mikasa</title>
+  <title>Python 对excel文件的读写 | Mikasa</title>
   
 
 
@@ -285,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://mymikasa.github.io/2018/07/27/test/">
+    <link itemprop="mainEntityOfPage" href="http://mymikasa.github.io/2018/10/24/Python 对excel文件的读写/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="mikasa">
@@ -302,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">test</h1>
+          <h1 class="post-title" itemprop="name headline">Python 对excel文件的读写</h1>
         
 
         <div class="post-meta">
@@ -314,8 +314,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-27T20:21:10+08:00">
-                2018-07-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-24T00:00:00+08:00">
+                2018-10-24
               </time>
             
 
@@ -337,8 +337,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/文件夹/" itemprop="url" rel="index">
-                    <span itemprop="name">文件夹</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -405,7 +405,9 @@
       
 
       
-        <h2 id="Hello-world"><a href="#Hello-world" class="headerlink" title="Hello world"></a>Hello world</h2><p>This is a test file.</p>
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xlwt</span><br><span class="line"></span><br><span class="line">book = xlwt.Workbook(encoding=<span class="string">'utf-8'</span>, style_compression=<span class="number">0</span>)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">创建一个Worlbook对象，相当于创建一个Excel文件</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">sheet = book.add_sheet(<span class="string">'test1'</span>,cell_overwrite_ok=<span class="keyword">True</span>)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">创建好的excel文件一般有sheet1,sheet2,sheet3</span></span><br><span class="line"><span class="string">此处表示将sheet1命名为test</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">sheet1 = book.add_sheet(<span class="string">'test2'</span>,cell_overwrite_ok=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">sheet.write(<span class="number">0</span>,<span class="number">0</span>,<span class="string">'Englishname'</span>)</span><br><span class="line">sheet.write(<span class="number">1</span>,<span class="number">0</span>,<span class="string">'Marcovaldo'</span>)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">0,0表示第0行，第0列</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">txt1 =<span class="string">'中文名字'</span></span><br><span class="line">sheet.write(<span class="number">0</span>,<span class="number">1</span>,txt1)</span><br><span class="line"></span><br><span class="line">book.save(<span class="string">r'test.xls'</span>) <span class="comment">#保存</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"></span><br><span class="line">filepath = <span class="string">"test.xls"</span></span><br><span class="line">book = xlrd.open_workbook(filepath)  <span class="comment">#实例化一个对象</span></span><br><span class="line">name = book.sheet_names()                   <span class="comment">#返回所有sheet的列表</span></span><br><span class="line">sheet2 = book.sheet_by_index(<span class="number">0</span>)      <span class="comment">#以索引来获取表</span></span><br><span class="line">sheet1 = book.sheet_by_name(name[<span class="number">0</span>]) <span class="comment">#以名字来获取表</span></span><br><span class="line"></span><br><span class="line">print(sheet1,sheet2)</span><br><span class="line"></span><br><span class="line">print(sheet1.name,sheet2.nrows,sheet1.ncols)  <span class="comment">#返回sheet的名字，行数，列数</span></span><br><span class="line"></span><br><span class="line">cc = sheet1.get_rows()            <span class="comment">#返回一个迭代器，遍历所有行，给出每个行的值列表</span></span><br><span class="line">print(cc.next())</span><br><span class="line">print(cc.next())</span><br><span class="line">print(sheet1.row_values(<span class="number">0</span>))  <span class="comment">#返回某一行的值列表</span></span><br><span class="line">row = sheet1.row(<span class="number">1</span>)          <span class="comment">#返回一个row对象，可以通过row[index]来获取这行里的单元格cell对象</span></span><br><span class="line">print(row[<span class="number">0</span>])</span><br><span class="line">print(sheet1.col_values(<span class="number">0</span>))   <span class="comment">#返回某一列的值列表</span></span><br><span class="line">print(sheet1.cell(<span class="number">0</span>,<span class="number">0</span>))       <span class="comment">#获取一个cell对象（row和col都从0开始算）</span></span><br></pre></td></tr></table></figure>
+<p>参考内容：<br><a href="https://www.cnblogs.com/beginner-boy/p/7239696.html" target="_blank" rel="noopener">https://www.cnblogs.com/beginner-boy/p/7239696.html</a><br>​<br><a href="https://www.cnblogs.com/franknihao/p/6535980.html" target="_blank" rel="noopener">https://www.cnblogs.com/franknihao/p/6535980.html</a></p>
 
       
     </div>
@@ -423,7 +425,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/测试/" rel="tag"> <i class="fa fa-tag"></i> 测试</a>
+            <a href="/tags/python/" rel="tag"> <i class="fa fa-tag"></i> python</a>
           
         </div>
       
@@ -436,14 +438,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/10/24/Python3 爬取今日头条（模拟ajax请求）/" rel="next" title="Python3 爬取今日头条（模拟ajax请求）">
+                <i class="fa fa-chevron-left"></i> Python3 爬取今日头条（模拟ajax请求）
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/16/2018-08-16-flask-mail-md/" rel="prev" title="2018-08-16-flask_mail.md">
-                2018-08-16-flask_mail.md <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/24/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -496,17 +502,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -568,22 +565,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-world"><span class="nav-number">1.</span> <span class="nav-text">Hello world</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
