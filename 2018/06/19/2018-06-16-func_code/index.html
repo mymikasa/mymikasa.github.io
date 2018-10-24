@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Python 函数式编程引言Functional Programming(函数式编程)的概念最早起源于LISP，由约翰·麦卡锡在1958年创立，最早提出了自动垃圾回收的理念，这一理念现在也被Python/Java/Ruby等多种语言借鉴。发展到今天，LISP已经衍生出了多种方言。相比面向对象编程，函数式编程的一大优势就是Immutable Data(数据不可变)，就是不依赖于外部的数据，而且也不改">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 函数式编程">
+<meta property="og:url" content="http://mymikasa.github.io/2018/06/19/2018-06-16-func_code/index.html">
+<meta property="og:site_name" content="Mikasa">
+<meta property="og:description" content="Python 函数式编程引言Functional Programming(函数式编程)的概念最早起源于LISP，由约翰·麦卡锡在1958年创立，最早提出了自动垃圾回收的理念，这一理念现在也被Python/Java/Ruby等多种语言借鉴。发展到今天，LISP已经衍生出了多种方言。相比面向对象编程，函数式编程的一大优势就是Immutable Data(数据不可变)，就是不依赖于外部的数据，而且也不改">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-24T12:49:11.514Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 函数式编程">
+<meta name="twitter:description" content="Python 函数式编程引言Functional Programming(函数式编程)的概念最早起源于LISP，由约翰·麦卡锡在1958年创立，最早提出了自动垃圾回收的理念，这一理念现在也被Python/Java/Ruby等多种语言借鉴。发展到今天，LISP已经衍生出了多种方言。相比面向对象编程，函数式编程的一大优势就是Immutable Data(数据不可变)，就是不依赖于外部的数据，而且也不改">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://mymikasa.github.io/2018/06/19/2018-06-16-func_code/">
+
+
+
+
+
+  <title>Python 函数式编程 | Mikasa</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mikasa</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Mikasa的个人小屋</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mymikasa.github.io/2018/06/19/2018-06-16-func_code/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mikasa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mikasa">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python 函数式编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-19T00:00:00+08:00">
+                2018-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Python-函数式编程"><a href="#Python-函数式编程" class="headerlink" title="Python 函数式编程"></a>Python 函数式编程</h2><h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>Functional Programming(函数式编程)的概念最早起源于LISP，由约翰·麦卡锡在1958年创立，最早提出了自动垃圾回收的理念，这一理念现在也被Python/Java/Ruby等多种语言借鉴。发展到今天，LISP已经衍生出了多种方言。相比面向对象编程，函数式编程的一大优势就是Immutable Data(数据不可变)，就是不依赖于外部的数据，而且也不改变外部数据的值，这种思想可以大大减少我们代码的Bug，而且函数式编程也支持我们像使用变量一样使用函数。Python作为面向对象语言，也提供了对于函数式编程的支持，虽然并不是那么纯粹，而且也不支持尾递归优化。</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li><p>闭包和高阶函数</p>
+</li>
+<li><p>惰性计算 </p>
+</li>
+<li><p>递归</p>
+</li>
+</ul>
+<h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><ol>
+<li>什么是闭包？</li>
+</ol>
+<p>在一个外函数中定义了一个内函数，内函数里运用了外函数的临时变量，并且外函数的返回值是内函数的引用。这样就构成了一个闭包。一般来说，在一个函数运行结束以后，函数内部所有的东西都会释放掉。局部变量都会消失。但是<code>闭包</code>是一种特殊情况，如果外函数在结束的时候发现有自己的临时变量将来会在内部函数中用到，就把这个临时变量绑定给了内部函数，然后自己在结束。</p>
+<p>解释一下名词<code>引用</code>：在Python中的一切都是对象。当我们进行像a = 1这样的运算的时候（注意注意前方高能预警），实际上是在内存中的某一个地方存储了一个值1，然后变量名<code>a</code>存储的并不是1这个值本身，而是1所在内存位置的引用。引用就好比c语言里的指针，比如说可以将引用理解成快捷方式，那么a就是值1的一个快捷方式，而非1本身。可以看如下一个例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">a 是指 列表[1,2,3,4,5,6,7,8,9]的一个引用，也就是一个快捷方式</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">b = a  表示将快捷方式a赋值给了b， 即a与b都是一个快捷方式</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">那么当我们修改列表的值的时候，因为列表是存储在内存中</span></span><br><span class="line"><span class="string">的，在修改值的时候并没有修改列表在内存的位置。所以a与b</span></span><br><span class="line"><span class="string">还是指向同一个列表。（比如说你电脑桌面上有两个lol的快捷</span></span><br><span class="line"><span class="string">方式，你通过快捷方式a启动lol，并且更新了lol。那么当你</span></span><br><span class="line"><span class="string">关闭lol之后，通过快捷方式b打开lol，你难道还会再更新一遍？）</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]</span><br><span class="line"></span><br><span class="line">b = a</span><br><span class="line"></span><br><span class="line">b[<span class="number">5</span>] = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">print(b)</span><br><span class="line">print(a)</span><br><span class="line"></span><br><span class="line"><span class="comment">#二者结果一致[1, 2, 3, 4, 5, 10, 7, 8, 9]</span></span><br></pre></td></tr></table></figure></p>
+<p>同理当我们在python中定义一个函数def demo():的时候，内存中会开辟一个空间用于存储这个函数的代码、内部的局部变量等等。而demo本质上是一个变量的名字，这个变量存储了这个函数所在位置的引用。所以我们可以进行像 x = demo, y = demo这样的操作。这样的操作相当于将demo里面存储的东西赋值给了x，y（也就是将函数的引用赋值给了x和y）。所以我们就可以使用x()或者y()来调用我们自己创建的demo()，所以实际上x、y、demo三个变量调用的是同一个函数。如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#闭包函数的实例</span></span><br><span class="line"><span class="comment"># outer是外部函数 a和b都是外函数的临时变量</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">( a )</span>:</span></span><br><span class="line">    b = <span class="number">10</span></span><br><span class="line">    <span class="comment"># inner是内函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="comment">#在内函数中 用到了外函数的临时变量</span></span><br><span class="line">        print(a+b)</span><br><span class="line">    <span class="comment"># 外函数的返回值是内函数的引用</span></span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 在这里我们调用外函数传入参数5</span></span><br><span class="line">    <span class="comment">#此时外函数两个临时变量 a是5 b是10 ，并创建了内函数，然后把内函数的引用返回存给了demo</span></span><br><span class="line">    <span class="comment"># 外函数结束的时候发现内部函数将会用到自己的临时变量，这两个临时变量就不会释放，会绑定给这个内部函数</span></span><br><span class="line">    demo = outer(<span class="number">5</span>)</span><br><span class="line">    <span class="comment"># 我们调用内部函数，看一看内部函数是不是能使用外部函数的临时变量</span></span><br><span class="line">    <span class="comment"># demo存了外函数的返回值，也就是inner函数的引用，这里相当于执行inner函数</span></span><br><span class="line">    demo() <span class="comment"># 15</span></span><br><span class="line"></span><br><span class="line">    demo2 = outer(<span class="number">7</span>)</span><br><span class="line">    demo2()<span class="comment">#17</span></span><br></pre></td></tr></table></figure>
+<p>一个函数，如果函数名后面紧跟着一对括号，相当于立刻就要调用这个函数。如果不跟括号，相当于只是一个函数的名字，里面存了函数所在位置的引用。</p>
+<p>对于闭包，在外函数outer中 最后return inner，我们在调用外函数 demo = outer() 的时候，outer返回了inner，inner是一个函数的引用，这个引用被存入了demo中。所以接下来我们再进行demo() 的时候，相当于运行了inner函数。</p>
+<p>什么是外函数把临时变量绑定给内函数？</p>
+<p>按照常理，一个函数在结束的时候会把自己的临时变量都释放给内存，之后变量就都不存在了。但是闭包不同，外部函数发现，自己的临时变量会在将来的内部函数中用到，那么自己在结束时候，返回内函数的同时，会把外函数的临时变量送给内函数绑定在一起。这样就形成了这样一种现象：外函数已经结束了，原本应该在内函数释放的外函数的临时变量会绑定在内函数里面。以至于在调用内函数的时候依然能够使用外函数的临时变量。</p>
+<p>例如：上述代码中两次调用外部函数的outer，分别传入5和7。而内部函数只定义了一次，但是在调用的时候，内函数是能够识别外函数的临时变量。外函数在运行的时候，实际上是按照里面的代码来执行的，外函数创建了一个函数，我们每次调用外函数，它都创建了一个内函数。虽然内函数的代码是一样的，但是实际上我们每次调用外函数，都返回不同的实例对象的引用，他们的功能是一样的，但是他们实际上不是同一个函数对象。</p>
+<p>闭包中如何修改外函数局部变量？</p>
+<p>经过前面的介绍我们知道，我们可以随意使用外函数绑定来的临时变量，但是如果我们想要修改外函数临时变量值的时候要如何操作呢？</p>
+<p>首先在基本的Python语法中，一个函数可以随意读取全局变量，但是要修改全局变量的时候有两种方法：1. <code>global</code>关键字声明全局变量。2. 全局变量是可变类型数据的时候可以修改。</p>
+<p>在闭包中如果修改闭包变量(外函数绑定给内函数的局部变量)的时候：使用nonlocal关键字声明一个变量，表示这个变量不是局部空间的变量，需要向上层空间寻找这个变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改闭包变量的实例</span></span><br><span class="line"><span class="comment"># outer是外部函数 a和b都是外函数的临时变量</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">( a )</span>:</span></span><br><span class="line">    b = <span class="number">10</span>  <span class="comment"># a和b都是闭包变量</span></span><br><span class="line">    <span class="comment"># inner是内函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="comment">#内函数中想修改闭包变量</span></span><br><span class="line">        <span class="comment"># 方法1 nonlocal关键字声明</span></span><br><span class="line">        <span class="keyword">nonlocal</span>  b</span><br><span class="line">        b+=<span class="number">1</span></span><br><span class="line">        print(b)</span><br><span class="line">    <span class="comment"># 外函数的返回值是内函数的引用</span></span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">    demo = outer(<span class="number">5</span>)</span><br><span class="line">    demo() <span class="comment"># 6  11</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>Python中怎么创建闭包</p>
+<p>Python 中创建一个闭包可以归结为一下三点：</p>
+<blockquote>
+<p>1、 闭包函数必须有内嵌函数</p>
+<p>2、 内嵌函数需要引用外函数中的变量</p>
+<p>3、 闭包必须返回内函数</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
+<li><p>函数是“第一等公民”</p>
+<p>所谓”第一等公民”（first class），指的是函数与其他数据类型一样，处于平等地位，可以赋值给其他变量，也可以作为参数，传入另一个函数，或者作为别的函数的返回值。</p>
+</li>
+<li><p>只用“表达式”，不用“语句”</p>
+<p>“表达式”（expression）是一个单纯的运算过程，总是有返回值；”语句”（statement）是执行某种操作，没有返回值。函数式编程要求，只使用表达式，不使用语句。也就是说，每一步都是单纯的运算，而且都有返回值。</p>
+<p>原因是函数式编程的开发动机，一开始就是为了处理运算（computation），不考虑系统的读写（I/O）。”语句”属于对系统的读写操作，所以就被排斥在外。</p>
+<p>当然，实际应用中，不做I/O是不可能的。因此，编程过程中，函数式编程只要求把I/O限制到最小，不要有不必要的读写行为，保持计算过程的单纯性。</p>
+</li>
+<li><p>没有副作用</p>
+<p>所谓”副作用”（side effect），指的是函数内部与外部互动（最典型的情况，就是修改全局变量的值），产生运算以外的其他结果。</p>
+<p>函数式编程强调没有”副作用”，意味着函数要保持独立，所有功能就是返回一个新的值，没有其他行为，尤其是不得修改外部变量的值。</p>
+</li>
+<li><p>不修改状态</p>
+<p>上一点已经提到，函数式编程只是返回新的值，不修改系统变量。因此，不修改变量，也是它的一个重要特点。</p>
+<p>在其他类型的语言中，变量往往用来保存”状态”（state）。不修改变量，意味着状态不能保存在变量中。函数式编程使用参数保存状态，最好的例子就是递归。下面的代码是一个将字符串逆序排列的函数，它演示了不同的参数如何决定了运算所处的”状态”。</p>
+</li>
+<li><p>引用透明性</p>
+<p>函数程序通常还加强引用透明性，即如果提供同样的输入，那么函数总是返回同样的结果。就是说，表达式的值不依赖于可以改变值的全局状态。这使您可以从形式上推断程序行为，因为表达式的意义只取决于其子表达式而不是计算顺序或者其他表达式的副作用。这有助于验证正确性、简化算法，甚至有助于找出优化它的方法。</p>
+</li>
+</ol>
+<h3 id="匿名函数-lambda"><a href="#匿名函数-lambda" class="headerlink" title="匿名函数 lambda"></a>匿名函数 lambda</h3><ol>
+<li><p>什么是ambda函数？</p>
+<p>lambda函数也叫做匿名函数，这种函数没有具体的名称。有时候也被叫做<code>lambda</code>表达式。</p>
+</li>
+<li><p>示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个普通的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x*<span class="number">2</span></span><br><span class="line">print(f(<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># lambda函数</span></span><br><span class="line">f = <span class="keyword">lambda</span> x: x*<span class="number">2</span></span><br><span class="line">print(f(<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<p>可以看到lambda的用法为<code>lambda 参数 ： 操作</code>。</p>
+</li>
+<li><p>lambda 函数的优劣</p>
+<ul>
+<li><p>lambda函数和普通的函数相比只是省去了函数名称而已，其他并无太大差别。</p>
+</li>
+<li><p>lambda函数并不会让我们程序的运行效率提高，只是让代码更加简洁，但是这么做的额代价就是让代码的可读性变得很差。</p>
+</li>
+<li><p>如果可以使用for…in…if来完成的，坚决不用lambda。 </p>
+</li>
+<li><p>如果使用lambda，lambda内不要包含循环，如果有，我宁愿定义函数来完成，使代码获得可重用性和更好的可读性。 </p>
+</li>
+<li><p>对于一些抽象的，不会别的地方再复用的函数，有时候给函数起个名字也是个难题，使用lambda不需要考虑命名的问题。 例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = [(<span class="number">1</span>, <span class="number">2</span>), (<span class="number">4</span>, <span class="number">1</span>), (<span class="number">9</span>, <span class="number">10</span>), (<span class="number">13</span>, <span class="number">-3</span>)]</span><br><span class="line">a.sort(key = <span class="keyword">lambda</span> x: x[<span class="number">1</span>])</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用Python写一些执行脚本时，使用lambda可以省去定义函数的过程，让代码更加精简。 </p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h3><ol>
+<li><p>什么是装饰器？</p>
+<p>从名字来看重点在于装饰这两个字，通俗来说装饰器就是用来装饰函数用的。举个例子来说：</p>
+<p>你拥有一台windows电脑，然而你的老大需要你在linux环境下办公。苦逼的你去重装系统了（PS：不要跟我说虚拟机，这仅仅只是个例子。(^_^) ），过了一段时间之后老大说我们linux项目已经告一段落了，接下来我们换回windows。（心里MMP，默默重装系统去了）。聪明的做法是直接装了双系统或者虚拟机这样就可以根据需求随时切换。</p>
+<p>其实装饰器就相当于装双系统或者虚拟机的做法。就是在不改变原有功能的前提下为其添加新的功能。(PS:也就相当于装修房子，而不是先拆房子然后重新盖房子)</p>
+</li>
+<li><p>一步一步手写装饰器</p>
+<ol>
+<li><p>手写一个函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">print(<span class="string">"add(10)"</span>,       add(<span class="number">10</span>))</span><br><span class="line">print(<span class="string">"add(20, 30)"</span>,   add(<span class="number">20</span>, <span class="number">30</span>))</span><br><span class="line">print(<span class="string">"add('a', 'b')"</span>, add(<span class="string">'a'</span>, <span class="string">'b'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Results:</span></span><br><span class="line"><span class="comment"># add(10) 20</span></span><br><span class="line"><span class="comment"># add(20, 30) 50</span></span><br><span class="line"><span class="comment"># add('a', 'b') ab</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>现在准备测试一下这个函数的性能，所以装饰一下这个函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">before = time()</span><br><span class="line">print(<span class="string">"add(10)"</span>,       add(<span class="number">10</span>))</span><br><span class="line">after = time()</span><br><span class="line">print(<span class="string">"time taken: &#123;&#125;"</span>.format(after - before))</span><br><span class="line"></span><br><span class="line">before = time()</span><br><span class="line">print(<span class="string">"add(20, 30)"</span>,   add(<span class="number">20</span>, <span class="number">30</span>))</span><br><span class="line">after = time()</span><br><span class="line">print(<span class="string">"time taken: &#123;&#125;"</span>.format(after - before))</span><br><span class="line"></span><br><span class="line">before = time()</span><br><span class="line">print(<span class="string">"add('a', 'b')"</span>, add(<span class="string">'a'</span>, <span class="string">'b'</span>))</span><br><span class="line">after = time()</span><br><span class="line">print(<span class="string">"time taken: &#123;&#125;"</span>.format(after - before))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Results</span></span><br><span class="line"><span class="comment"># add(10) 20</span></span><br><span class="line"><span class="comment"># time taken: 0.00017189979553222656</span></span><br><span class="line"><span class="comment"># add(20, 30) 50</span></span><br><span class="line"><span class="comment"># time taken: 9.751319885253906e-05</span></span><br><span class="line"><span class="comment"># add('a', 'b') ab</span></span><br><span class="line"><span class="comment"># time taken: 0.00012969970703125</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以看到现在我们的代码变的很复杂，并且有很多重复。这样对代码的可读性有一定的影响。所以决定简化一下代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y=<span class="number">10</span>)</span>:</span></span><br><span class="line">    before = time()</span><br><span class="line">    result = x + y</span><br><span class="line">    after = time()</span><br><span class="line">    print(<span class="string">'elapsed: '</span>, after - before)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">print(<span class="string">"add(10)"</span>,       add(<span class="number">10</span>))</span><br><span class="line">print(<span class="string">"add(20, 30)"</span>,   add(<span class="number">20</span>, <span class="number">30</span>))</span><br><span class="line">print(<span class="string">"add('a', 'b')"</span>, add(<span class="string">'a'</span>, <span class="string">'b'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Results</span></span><br><span class="line"><span class="comment"># elapsed:  1.9073486328125e-06</span></span><br><span class="line"><span class="comment"># add(10) 20</span></span><br><span class="line"><span class="comment"># elapsed:  9.5367431640625e-07</span></span><br><span class="line"><span class="comment"># add(20, 30) 50</span></span><br><span class="line"><span class="comment"># elapsed:  1.9073486328125e-06</span></span><br><span class="line"><span class="comment"># add('a', 'b') ab</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>现在来看代码的美观程度与可读性都比之前要好很多。现在有一个<code>sub</code>函数需要我们再一次对其进行性能测试：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sub</span><span class="params">(x, y=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x - y</span><br><span class="line"></span><br><span class="line"><span class="comment">#改写成下面这中方式：</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sub</span><span class="params">(x, y=<span class="number">10</span>)</span>:</span></span><br><span class="line">    before = time()</span><br><span class="line">    result = x - y</span><br><span class="line">    after = time()</span><br><span class="line">    print(<span class="string">'elapsed: '</span>, after - before)</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>作为一个懒惰的程序员，我们立马就发现了，有一个 “模式” 反复出现，即执行一个函数，并计算这个函数的执行时间。于是我们就可以把计算性能这部分抽象出来：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timer</span><span class="params">(func, x, y = <span class="number">10</span>)</span>:</span></span><br><span class="line">    before = time()</span><br><span class="line">    result = func(x, y)</span><br><span class="line">    after = time()</span><br><span class="line">    print(<span class="string">"elapsed: "</span>, after - before)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y = <span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sub</span><span class="params">(x, y = <span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x - y</span><br><span class="line"></span><br><span class="line">print(<span class="string">"add(10)"</span>, timer(add, <span class="number">10</span>))</span><br><span class="line">print(<span class="string">"add(20, 30)"</span>, timer(add, <span class="number">20</span>, <span class="number">30</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>继续改进，可以看到现在我们需要先拿到所有的测试用例，然后调用timer方法才解决了问题，现在需要你只调用add方法就完成所需操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timer</span><span class="params">(func)</span>:</span>               <span class="comment">#&lt;----------- 闭包详情往上翻</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wraper</span><span class="params">(x, y=<span class="number">10</span>)</span>:</span></span><br><span class="line">        before = time()</span><br><span class="line">        result = func(x, y)</span><br><span class="line">        after = time()</span><br><span class="line">        print(<span class="string">"elapsed: "</span>, after - before)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    <span class="keyword">return</span> wraper</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y = <span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">add = timer(add)              <span class="comment">#&lt;-------------对add函数进行装饰</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sub</span><span class="params">(x, y = <span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x - y</span><br><span class="line">sub = timer(sub)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"add(10)"</span>,       add(<span class="number">10</span>))</span><br><span class="line">print(<span class="string">"add(20, 30)"</span>,   add(<span class="number">20</span>, <span class="number">30</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这里的最后一个问题是，我们的 timer 包装的函数可能有不同的参数，于是我们可以进一步用 <code>*args, **kwargs</code> 来传递参数： </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timer</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wraper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        before = time()</span><br><span class="line">        result = func(*args, **kwargs)</span><br><span class="line">        after = time()</span><br><span class="line">        print(<span class="string">"elapsed: "</span>, after - before)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    <span class="keyword">return</span> wraper</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sub</span><span class="params">(x, y = <span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x - y</span><br><span class="line">sub = timer(sub)</span><br></pre></td></tr></table></figure>
+<p> <code>timer</code> 函数就是一个 “装饰器”，它接收一个函数，并返回一个新的函数。在装饰器的内部，对原函数进行了“包装”。 </p>
+</li>
+<li><p>Python中装饰器的简单写法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@timer</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure>
+<p>7，8两种装饰器写法完全等价</p>
+</li>
+</ol>
+</li>
+<li><p>带参数的装饰器</p>
+</li>
+<li><p>类装饰器</p>
+</li>
+<li><p>装饰器的执行顺序</p>
+</li>
+</ol>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://www.cnblogs.com/Lin-Yi/p/7305364.html" target="_blank" rel="noopener">谈谈自己的理解:python中闭包，闭包的实质</a></p>
+<p><a href="https://baike.baidu.com/item/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/4035031?fr=aladdin" target="_blank" rel="noopener">百度百科</a></p>
+<p><a href="http://lotabout.me/2017/Python-Decorator/" target="_blank" rel="noopener">Python Decorator</a>    </p>
+<p><a href="https://foofish.net/python-decorator.html" target="_blank" rel="noopener">FOOFISH-PYTHON之禅</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/24/2018-03-24-Bailey/" rel="next" title="一条狗的使命">
+                <i class="fa fa-chevron-left"></i> 一条狗的使命
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/27/test/" rel="prev" title="test">
+                test <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="mikasa">
+            
+              <p class="site-author-name" itemprop="name">mikasa</p>
+              <p class="site-description motion-element" itemprop="description">想做机器学习的爬虫工程师</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-函数式编程"><span class="nav-number">1.</span> <span class="nav-text">Python 函数式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引言"><span class="nav-number">1.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特性"><span class="nav-number">1.2.</span> <span class="nav-text">特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包"><span class="nav-number">1.2.1.</span> <span class="nav-text">闭包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">1.3.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名函数-lambda"><span class="nav-number">1.4.</span> <span class="nav-text">匿名函数 lambda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器"><span class="nav-number">1.5.</span> <span class="nav-text">装饰器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">1.6.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mikasa</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">全站共字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  
+</body>
+</html>
